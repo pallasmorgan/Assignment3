@@ -1,35 +1,31 @@
-# Project Name
+# Path Exploration using MCTs and Value Learning
 ---
 ## Description
-A brief explanation of what this project does and why it exists.
-
+This project explores the path between Charleston and Charlotte using MCTS. This will be done by creating a graph structure where Charleston is the starting point and Charlotte is the desination. Each time the algorithm will choose 5 random points, from the set of locations in assignment 2, to stop at (delivery points).
+Use value learning to ensure your algorithm reaches its desination through the shortest path. Assign moves with positive or negitative points, end the traversal once the desination (Charlotte) is reached or once a set negative value is returned.
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/project-name.git
+   git clone https://github.com/pallasmorgan/assignment3.git
 	```
 
 2. Navigate to the project directory:
     
     ```sh
-    cd project-name
+    cd assignment3
     ```
     
 3. Install dependencies (if applicable):
     
-    ```sh
-    pip install -r requirements.txt  # For Python
-    npm install  # For Node.js
-    ```
+   from collections import deque
+   import math
     
 
 ## Usage
@@ -37,39 +33,30 @@ A brief explanation of what this project does and why it exists.
 Run the program with:
 
 ```sh
-python main.py  # Python
-./run.sh        # Shell script
-node index.js   # JavaScript
+python PathOpt-Learning.py  # Python
+
 ```
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
-
+-prepare_data() 
+-- Where the cites and the graph are initialized.
+- bfs_shortest_path(start, end)
+- - uses bfs to traverse through the graph, starts at Charleston and ends at Charlotte or until score is too low.
+  - class Node
+  - - initilizes a current city, parent, children, visits, tot_vale, depth, and the visited nodes.
+    - - _get visited_path
+      - is_fully_espanded: expands a current node to its children
+      - best_child: returns the best child and adds its value to the score
+- rollout: sets a node to visited on the current path, calculates the score and updates through the path. Appends the next step(city) to the path and the list of visited for the learning.
+- key features: selection with strict visit tracking, expansion ensuring no revisits, prioritize unvisited deliveries making progress, simulation, backpropagation
 ## Technologies Used
 
 - Python 3.10
-- Flask
-- PostgreSQL
-- Docker
+- Github
 
-## Contributing
-
-Contributions are welcome! Follow these steps:
-
-4. Fork the repo
-5. Create a new branch (`git checkout -b feature-name`)
-6. Commit your changes (`git commit -m "Added feature"`)
-7. Push to the branch (`git push origin feature-name`)
-8. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: [your.email@example.com](mailto:your.email@example.com)
+- GitHub: @pallasmorgan, @aylenemce, @jacko123456
+- Email: pallasmv@g.cofc.edu, mcentireak@g.cofc.edu, keimjm@g.cofc.edu
