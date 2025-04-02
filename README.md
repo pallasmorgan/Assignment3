@@ -1,8 +1,10 @@
 # Path Exploration using MCTs and Value Learning
 ---
 ## Description
-This project explores the path between Charleston and Charlotte using MCTS. This will be done by creating a graph structure where Charleston is the starting point and Charlotte is the desination. Each time the algorithm will choose 5 random points, from the set of locations in assignment 2, to stop at (delivery points).
-Use value learning to ensure your algorithm reaches its desination through the shortest path. Assign moves with positive or negitative points, end the traversal once the desination (Charlotte) is reached or once a set negative value is returned.
+his project explores the optimal path between Charleston and Charlotte using Monte Carlo Tree Search (MCTS) with value learning. The algorithm dynamically selects five random delivery points from a predefined list of cities and ensures efficient path traversal while minimizing negative scores.
+
+The goal is to reach Charlotte using the shortest possible route while maximizing rewards from deliveries and minimizing penalties for revisits or inefficiencies.
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -24,8 +26,7 @@ Use value learning to ensure your algorithm reaches its desination through the s
     
 3. Install dependencies (if applicable):
     
-   from collections import deque
-   import math
+   pip install -r requirements.txt
     
 
 ## Usage
@@ -39,20 +40,38 @@ python PathOpt-Learning.py  # Python
 
 ## Features
 
--prepare_data() 
--- Where the cites and the graph are initialized.
-- bfs_shortest_path(start, end)
-- - uses bfs to traverse through the graph, starts at Charleston and ends at Charlotte or until score is too low.
-  - class Node
-  - - initilizes a current city, parent, children, visits, tot_vale, depth, and the visited nodes.
-    - - _get visited_path
-      - is_fully_espanded: expands a current node to its children
-      - best_child: returns the best child and adds its value to the score
-- rollout: sets a node to visited on the current path, calculates the score and updates through the path. Appends the next step(city) to the path and the list of visited for the learning.
-- key features: selection with strict visit tracking, expansion ensuring no revisits, prioritize unvisited deliveries making progress, simulation, backpropagation
+1. Graph Representation & Initialization
+   - prepare_data() – Initializes the graph structure with predefined city connections and computes shortest paths from each city to Charlotte using BFS.
+
+3. Pathfinding Algorithms
+   - bfs_shortest_path(start, end) – Uses Breadth-First Search (BFS) to determine the shortest path from Charleston to Charlotte.
+
+   - rollout(node, graph, delivery_points, distances, max_steps=15) – Simulates path traversal, selecting the next city based on priority rules while updating scores.
+
+3. Monte Carlo Tree Search (MCTS)
+   - MCTS consists of four main steps:
+
+ - Selection: Chooses the best child node using a balance of exploitation and exploration.
+
+   - Expansion: Expands new nodes only when necessary, prioritizing unvisited deliveries and cities leading toward Charlotte.
+
+   - Simulation (Rollout): Runs a simulated path to evaluate the effectiveness of a given route.
+
+   - Backpropagation: Updates values in the tree to refine future decisions.
+
+4. Node Class for MCTS
+   - Node(city, parent=None): Represents a city in the search tree, tracking visits, values, depth, and explored paths.
+
+   - is_fully_expanded(graph): Checks if all possible children of a node have been expanded.
+
+   - best_child(c=1.414): Selects the optimal next city based on a UCT formula, ensuring balance between exploration and exploitation.
+
+
 ## Technologies Used
 
 - Python 3.10
+- math (mathematical calculations for scoring)
+- collections.deque (used in BFS for shortest pathfinding)
 - Github
 
 
